@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Daily Nature · Ritual-Quiz (Entwurf zur Freigabe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500&family=Instrument+Sans:wght@500&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #F1E4D3; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 16px 48px; color: #321E1E; }
+  .draft-bar { width: 100%; background: #321E1E; color: #FAF4F0; text-align: center; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px; margin: 0 -16px 28px; }
+  .card { background: #FAF4F0; border-radius: 14px; width: 100%; max-width: 470px; padding: 34px 30px; min-height: 560px; display: flex; flex-direction: column; box-shadow: 0 1px 40px rgba(50,30,30,.06); }
+  .eyebrow { font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #A87D12; margin-bottom: 14px; }
+  h1 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 400; font-size: 28px; line-height: 1.16; }
+  h2 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 400; font-size: 23px; line-height: 1.24; }
+  p { font-size: 14.5px; line-height: 1.62; color: #5C4A42; }
+  .prog { display: flex; gap: 5px; margin-bottom: 24px; }
+  .prog span { height: 3px; flex: 1; background: #E4D4C0; border-radius: 2px; transition: background .3s; }
+  .prog span.on { background: #BD931C; }
+  .opt { width: 100%; text-align: left; background: #fff; border: 1px solid #EADBC8; border-radius: 11px; padding: 16px; margin-top: 11px; cursor: pointer; font-family: 'Montserrat'; font-size: 14.5px; color: #321E1E; transition: border-color .15s, background .15s; display: flex; align-items: center; gap: 13px; line-height: 1.4; }
+  .opt:hover { border-color: #BD931C; }
+  .opt.sel { border-color: #BD931C; background: #F2E7C7; }
+  .dot { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #C9B69C; flex-shrink: 0; }
+  .opt.sel .dot { border-color: #BD931C; background: #BD931C; box-shadow: inset 0 0 0 3px #F2E7C7; }
+  .btn { background: #321E1E; color: #FAF4F0; border: none; border-radius: 999px; padding: 15px 22px; font-family: 'Instrument Sans'; font-weight: 500; font-size: 14px; letter-spacing: 0.03em; cursor: pointer; width: 100%; margin-top: 20px; transition: background .15s; }
+  .btn:hover { background: #4a2f2f; }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-gold { background: #BD931C; }
+  .btn-gold:hover { background: #A87D12; }
+  .spacer { flex: 1; }
+  .back { background: none; border: none; color: #A87D12; font-family: 'Montserrat'; font-size: 13px; cursor: pointer; margin-top: 14px; padding: 4px; }
+  .hint { font-size: 12px; color: #8a7568; margin-top: 9px; text-align: center; }
+  .prod { display: flex; align-items: center; gap: 13px; background: #fff; border: 1px solid #EADBC8; border-radius: 11px; padding: 13px 15px; margin-top: 10px; }
+  .prod .role { font-family: 'Instrument Sans'; font-weight: 500; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #A87D12; }
+  .prod .nm { font-size: 14px; }
+  .badge { display: inline-block; background: #D7E3D0; color: #284A30; font-family: 'Instrument Sans'; font-weight: 500; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
+  .field { width: 100%; padding: 14px 15px; border: 1px solid #EADBC8; border-radius: 11px; font-family: 'Montserrat'; font-size: 14px; margin-top: 11px; background: #fff; }
+  .field:focus { outline: none; border-color: #BD931C; }
+  .foot { font-size: 11px; color: #8a7568; margin-top: 22px; text-align: center; max-width: 470px; }
+</style>
+</head>
+<body>
+<div class="draft-bar">Entwurf zur Freigabe · Daily Nature</div>
+<div class="card" id="card"></div>
+<p class="foot">Interaktiver Entwurf zur internen Abstimmung. Texte, Produktzuordnung und Design sind vorläufig. Finale Umsetzung erfolgt im Shop über Lantern.</p>
+<script>
+(function(){
+  var R = {
+    fundament:{ name:'Fundament', sub:'Holistic Anchor', desc:'für eine stabile Basis', why:'Du investierst proaktiv in deine Basisgesundheit, statt zu reparieren. Dein Ritual sichert die tägliche Versorgung mit dem Essenziellen.', prods:[['Hero','Multivitamin Komplex'],['Support','Vitamin D3/K2'],['Satellite','Omega 3']], next:'innere-staerke' },
+    'innere-staerke':{ name:'Fokus', sub:'Mindful Focus & Flow', desc:'für klare Gedanken', why:'Dein Ritual stärkt Nervensystem und Stressresistenz, damit du fokussiert bleibst, ohne auszubrennen. Wach im Kopf, ruhig im System.', prods:[['Hero','Vitamin B Komplex'],['Support','Coenzym Q10'],['Satellite','Ashwagandha KSM-66']], next:'regeneration' },
+    ausstrahlung:{ name:'Beauty', sub:'Inner Glow & Radiance', desc:'für Schönheit, die von innen kommt', why:'Dein Ritual verbindet Haut, Haar und Zellschutz, weil äußere Erscheinung in innerer Gesundheit wurzelt. Schönheit beginnt in der Zelle.', prods:[['Hero','Hyaluronsäure'],['Support','Biotin mit Zink & Selen'],['Satellite','Vitamin C gepuffert']], next:'regeneration' },
+    regeneration:{ name:'Regeneration', sub:'Deep Rest & Detox', desc:'für tiefe Erholung', why:'Dein Abend-Ritual fördert Entspannung, Leberregeneration und erholsamen Schlaf. Loslassen, was der Tag hinterlässt.', prods:[['Hero','Magnesium Komplex'],['Support','Mariendistel'],['Satellite','MSM']], next:'innere-staerke' }
+  };
+  var Q = [
+    { ey:'Frage 1 von 4', q:'Was würde sich gerade am meisten wie ein Geschenk anfühlen?', multi:false, opts:[
+      {t:'Ein stabiles Fundament, auf das ich mich verlasse', s:{fundament:2}},
+      {t:'Klarheit und Energie für meine vollen Tage', s:{'innere-staerke':2}},
+      {t:'Sichtbar strahlen, von innen heraus', s:{ausstrahlung:2}},
+      {t:'Tiefe Ruhe und echte Erholung', s:{regeneration:2}} ]},
+    { ey:'Frage 2 von 4', q:'Was raubt dir im Alltag am meisten Kraft?', multi:false, opts:[
+      {t:'Ich fühle mich anfällig und unausgewogen', s:{fundament:2}},
+      {t:'Gedankenkreisen, innere Unruhe, Erschöpfung', s:{'innere-staerke':2}},
+      {t:'Haut, Haare und Nägel zeigen den Stress', s:{ausstrahlung:2}},
+      {t:'Schlechter Schlaf, Verspannung, träge Verdauung', s:{regeneration:2}} ]},
+    { ey:'Frage 3 von 4 · Mehrfachauswahl möglich', q:'Worauf möchtest du den Fokus legen?', multi:true, opts:[
+      {t:'Immunsystem & Grundversorgung', s:{fundament:1}},
+      {t:'Konzentration & Stressbalance', s:{'innere-staerke':1}},
+      {t:'Haut, Haar & Anti-Aging', s:{ausstrahlung:1}},
+      {t:'Schlaf, Muskeln & Entgiftung', s:{regeneration:1}},
+      {t:'Zelluläre Energie & Vitalität', s:{'innere-staerke':1,fundament:1}} ]},
+    { ey:'Frage 4 von 4', q:'Wie möchtest du dein Ritual leben?', multi:false, opts:[
+      {t:'Ich starte mit einem Produkt', s:{}, depth:'single'},
+      {t:'Ich möchte das ganze Ritual als System', s:{}, depth:'system'},
+      {t:'Im Abo, damit es nie ausgeht', s:{}, depth:'abo'} ]}
+  ];
+  var step=0, answers=[], depth='system', card=document.getElementById('card');
+  function prog(n){ var h='<div class="prog">'; for(var i=0;i<6;i++) h+='<span class="'+(i<n?'on':'')+'"></span>'; return h+'</div>'; }
+  function intro(){
+    card.innerHTML='<div class="eyebrow">Daily Nature · Finde dein Ritual</div><h1>Welches Ritual bringt dich in Einklang?</h1><p style="margin-top:14px">Vier Fragen, etwa 60 Sekunden. Wir übersetzen deinen Alltag in ein kuratiertes Wohlfühl-Ritual, das zu dir passt.</p><div class="spacer"></div><button class="btn" id="start">Quiz starten</button><div class="hint">Keine Anmeldung nötig, um zu starten.</div>';
+    document.getElementById('start').onclick=function(){step=1;render();};
+  }
+  function render(){ if(step===0)return intro(); if(step>=1&&step<=4)return question(step-1); if(step===5)return gate(); return result(); }
+  function question(qi){
+    var qd=Q[qi], sel=answers[qi]||(qd.multi?[]:null);
+    var h=prog(qi+1)+'<div class="eyebrow">'+qd.ey+'</div><h2>'+qd.q+'</h2>';
+    qd.opts.forEach(function(o,oi){ var on=qd.multi?sel.indexOf(oi)>-1:sel===oi; h+='<button class="opt'+(on?' sel':'')+'" data-oi="'+oi+'"><span class="dot"></span><span>'+o.t+'</span></button>'; });
+    h+='<div class="spacer"></div><button class="btn" id="next" '+((qd.multi?sel.length===0:sel===null)?'disabled':'')+'>Weiter</button>';
+    if(step>1) h+='<button class="back" id="back">Zurück</button>';
+    card.innerHTML=h;
+    [].forEach.call(card.querySelectorAll('.opt'),function(b){ b.onclick=function(){ var oi=+b.getAttribute('data-oi'); if(qd.multi){sel=sel.slice();var p=sel.indexOf(oi);if(p>-1)sel.splice(p,1);else sel.push(oi);}else sel=oi; answers[qi]=sel; render(); }; });
+    var nx=document.getElementById('next'); if(nx)nx.onclick=function(){ if(step===4)commit(); step++; render(); };
+    var bk=document.getElementById('back'); if(bk)bk.onclick=function(){step--;render();};
+  }
+  var scores, firstChoice;
+  function commit(){ scores={fundament:0,'innere-staerke':0,ausstrahlung:0,regeneration:0}; Q.forEach(function(qd,qi){ var a=answers[qi]; if(a==null)return; (qd.multi?a:[a]).forEach(function(oi){ var s=qd.opts[oi].s||{}; for(var k in s)scores[k]+=s[k]; if(qd.opts[oi].depth)depth=qd.opts[oi].depth; }); }); firstChoice=Object.keys(Q[0].opts[answers[0]].s)[0]; }
+  function winner(){ var best=null,bv=-1; for(var k in scores)if(scores[k]>bv){bv=scores[k];best=k;} var tie=Object.keys(scores).filter(function(k){return scores[k]===bv;}); if(tie.length>1&&firstChoice&&tie.indexOf(firstChoice)>-1)return firstChoice; return best; }
+  function gate(){
+    card.innerHTML=prog(5)+'<div class="eyebrow">Fast geschafft</div><h2>Dein Ritual ist bereit.</h2><p style="margin-top:12px">Wohin dürfen wir deine persönliche Ritual-Empfehlung senden? Du erhältst sie als kurzen Guide und sicherst dir <strong>10&nbsp;% auf dein erstes Ritual</strong>.</p><input class="field" type="text" placeholder="Dein Vorname"><input class="field" type="email" placeholder="deine@email.de"><div class="spacer"></div><button class="btn btn-gold" id="reveal">Mein Ritual ansehen</button><button class="back" id="skip">Überspringen und direkt ansehen</button>';
+    document.getElementById('reveal').onclick=function(){step++;render();};
+    document.getElementById('skip').onclick=function(){step++;render();};
+  }
+  function result(){
+    var w=winner(), r=R[w], sec=R[r.next];
+    var dl={single:'Einstieg mit dem Hero-Produkt',system:'Das vollständige Ritual als System',abo:'Als Abo, 10 % günstiger'}[depth];
+    var h=prog(6)+'<div class="eyebrow">Dein Ergebnis</div><span class="badge">Ritual · '+r.sub+'</span><h1>'+r.name+'</h1><p style="margin-top:6px;font-family:Bricolage Grotesque;font-size:16px;color:#A87D12">'+r.desc+'</p><p style="margin-top:12px">'+r.why+'</p><p style="margin-top:14px;font-size:11px;color:#A87D12;font-family:Instrument Sans;letter-spacing:.08em;text-transform:uppercase">Dein Setup · '+dl+'</p>';
+    r.prods.forEach(function(p){ h+='<div class="prod"><div><div class="role">'+p[0]+'</div><div class="nm">'+p[1]+'</div></div></div>'; });
+    h+='<div class="spacer"></div><button class="btn btn-gold" id="cta">Ritual entdecken</button><div class="hint">Passt auch zu dir: Ritual '+sec.name+'</div><button class="back" id="restart">Quiz neu starten</button>';
+    card.innerHTML=h;
+    document.getElementById('restart').onclick=function(){step=0;answers=[];depth='system';render();};
+    document.getElementById('cta').onclick=function(){ alert('Im Live-Shop: Link zur Ritual-Kollektion „'+r.name+'".'); };
+  }
+  intro();
+})();
+</script>
+</body>
+</html>
