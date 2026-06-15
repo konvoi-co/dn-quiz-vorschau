@@ -84,7 +84,7 @@
   }
   function render(){ if(step===0)return intro(); if(step>=1&&step<=4)return question(step-1); if(step===5)return gate(); return result(); }
   function question(qi){
-    var qd=Q[qi], sel=answers[qi]||(qd.multi?[]:null);
+    var qd=Q[qi], sel=(answers[qi]!==undefined)?answers[qi]:(qd.multi?[]:null);
     var h=prog(qi+1)+'<div class="eyebrow">'+qd.ey+'</div><h2>'+qd.q+'</h2>';
     qd.opts.forEach(function(o,oi){ var on=qd.multi?sel.indexOf(oi)>-1:sel===oi; h+='<button class="opt'+(on?' sel':'')+'" data-oi="'+oi+'"><span class="dot"></span><span>'+o.t+'</span></button>'; });
     h+='<div class="spacer"></div><button class="btn" id="next" '+((qd.multi?sel.length===0:sel===null)?'disabled':'')+'>Weiter</button>';
