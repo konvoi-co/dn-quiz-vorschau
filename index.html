@@ -49,10 +49,10 @@
 <script>
 (function(){
   var R = {
-    fundament:{ name:'Fundament', sub:'Immunität & Basis', desc:'für eine stabile Basis', why:'Du legst dein Fundament, bevor der Alltag fordert. Tägliche Grundversorgung und Widerstandskraft, bewusst kuratiert.', bundle:{nm:'Ritual No. 9 · The Vital Shield', n:'D3/K2 + gepuffertes Vitamin C', pr:'48,98 €'}, ess:['Vitamin D3/K2 Tabletten','Gepuffertes Vitamin C','Bio Gerstengras'], next:'innere-staerke' },
-    'innere-staerke':{ name:'Fokus', sub:'Klarheit & Energie', desc:'für klare Gedanken', why:'Dein Morgenritual für Präsenz und zelluläre Energie. Wach im Kopf, ruhig im System.', bundle:{nm:'Ritual No. 7 · Morning Clarity', n:'Coenzym Q10 + gepuffertes Vitamin C', pr:'54,98 €'}, ess:['Coenzym Q10','Gepuffertes Vitamin C','Bio Gerstengras'], next:'ausstrahlung' },
-    ausstrahlung:{ name:'Beauty', sub:'Ausstrahlung', desc:'für Schönheit, die von innen kommt', why:'Schönheit beginnt unter der Oberfläche. Haut, Haar und Struktur, von innen gepflegt.', bundle:{nm:'Ritual No. 10 · The Radiant Pair', n:'Biotin Zink+Selen + gepuffertes Vitamin C', pr:'47,98 €'}, ess:['Hyaluronsäure','Biotin mit Zink & Selen','Gepuffertes Vitamin C'], next:'regeneration' },
-    regeneration:{ name:'Regeneration', sub:'Abend & Detox', desc:'für tiefe Erholung', why:'Dein bewusstes Abendritual. Loslassen, was der Tag hinterlässt, für Erholung und innere Balance.', bundle:{nm:'Ritual No. 2 · The Systematic Reset', n:'MSM + Mariendistel + Bio Gerstengras', pr:'46,98 €'}, ess:['MSM','Mariendistel','Bio Gerstengras'], next:'fundament' }
+    fundament:{ name:'Fundament', sub:'Immunität & Basis', desc:'für eine stabile Basis', rhythm:'Dein tägliches Ritual', why:'Du legst dein Fundament, bevor der Alltag fordert. Tägliche Grundversorgung und Widerstandskraft, bewusst kuratiert.', bundle:{nm:'Ritual No. 9 · The Vital Shield', n:'D3/K2 + gepuffertes Vitamin C', pr:'48,98 €'}, ess:['Vitamin D3/K2 Tabletten','Gepuffertes Vitamin C','Bio Gerstengras'], next:'innere-staerke' },
+    'innere-staerke':{ name:'Fokus', sub:'Klarheit & Energie', desc:'für klare Gedanken', rhythm:'Dein Morgenritual', why:'Dein Morgenritual für Präsenz und zelluläre Energie. Wach im Kopf, ruhig im System.', bundle:{nm:'Ritual No. 7 · Morning Clarity', n:'Coenzym Q10 + gepuffertes Vitamin C', pr:'54,98 €'}, ess:['Coenzym Q10','Gepuffertes Vitamin C','Bio Gerstengras'], next:'ausstrahlung' },
+    ausstrahlung:{ name:'Beauty', sub:'Ausstrahlung', desc:'für Schönheit, die von innen kommt', rhythm:'Dein tägliches Ritual', why:'Schönheit beginnt unter der Oberfläche. Haut, Haar und Struktur, von innen gepflegt.', bundle:{nm:'Ritual No. 10 · The Radiant Pair', n:'Biotin Zink+Selen + gepuffertes Vitamin C', pr:'47,98 €'}, ess:['Hyaluronsäure','Biotin mit Zink & Selen','Gepuffertes Vitamin C'], next:'regeneration' },
+    regeneration:{ name:'Regeneration', sub:'Abend & Detox', desc:'für tiefe Erholung', rhythm:'Dein Abendritual', why:'Dein bewusstes Abendritual. Loslassen, was der Tag hinterlässt, für Erholung und innere Balance.', bundle:{nm:'Ritual No. 2 · The Systematic Reset', n:'MSM + Mariendistel + Bio Gerstengras', pr:'46,98 €'}, ess:['MSM','Mariendistel','Bio Gerstengras'], next:'fundament' }
   };
   var Q = [
     { ey:'Frage 1 von 4', q:'Was würde sich gerade am meisten wie ein Geschenk anfühlen?', multi:false, opts:[
@@ -79,7 +79,7 @@
   var step=0, answers=[], depth='system', card=document.getElementById('card');
   function prog(n){ var h='<div class="prog">'; for(var i=0;i<6;i++) h+='<span class="'+(i<n?'on':'')+'"></span>'; return h+'</div>'; }
   function intro(){
-    card.innerHTML='<div class="eyebrow">Daily Nature · Finde dein Ritual</div><h1>Welches Ritual bringt dich in Einklang?</h1><p style="margin-top:14px">Vier Fragen, etwa 60 Sekunden. Wir übersetzen deinen Alltag in ein kuratiertes Wohlfühl-Ritual, das zu dir passt.</p><div class="spacer"></div><button class="btn" id="start">Quiz starten</button><div class="hint">Keine Anmeldung nötig, um zu starten.</div>';
+    card.innerHTML='<div class="eyebrow">Daily Nature · Finde dein Ritual</div><h1>Welches Ritual bringt dich in Einklang?</h1><p style="margin-top:14px">Vier Fragen, etwa 60 Sekunden. Wir übersetzen deinen Alltag in ein kuratiertes Wohlfühl-Ritual, das zu dir passt.</p><p style="font-size:11px;color:#8a7568;margin-top:16px;letter-spacing:.04em">Handselektierte Rohstoffe · Clean Label · laborgeprüft</p><div class="spacer"></div><button class="btn" id="start">Quiz starten</button><div class="hint">Keine Anmeldung nötig, um zu starten.</div>';
     document.getElementById('start').onclick=function(){step=1;render();};
   }
   function render(){ if(step===0)return intro(); if(step>=1&&step<=4)return question(step-1); if(step===5)return gate(); return result(); }
@@ -105,10 +105,11 @@
   function result(){
     var w=winner(), r=R[w], sec=R[r.next];
     var dl={single:'Einzeln starten mit '+r.ess[0], system:r.bundle.nm+' als komplettes Ritual', abo:r.bundle.nm+' im Abo, 10 % günstiger'}[depth];
-    var h=prog(6)+'<div class="eyebrow">Dein Ergebnis</div><span class="badge">Dein Ritual · '+r.sub+'</span><h1>'+r.name+'</h1><p style="margin-top:6px;font-family:Bricolage Grotesque;font-size:16px;color:#A87D12">'+r.desc+'</p><p style="margin-top:12px">'+r.why+'</p><p style="margin-top:14px;font-size:11px;color:#A87D12;font-family:Instrument Sans;letter-spacing:.08em;text-transform:uppercase">Empfehlung · '+dl+'</p>';
+    var h=prog(6)+'<div class="eyebrow">Dein Ergebnis · '+r.rhythm+'</div><span class="badge">Dein Ritual · '+r.sub+'</span><h1>'+r.name+'</h1><p style="margin-top:6px;font-family:Bricolage Grotesque;font-size:16px;color:#A87D12">'+r.desc+'</p><p style="margin-top:12px">'+r.why+'</p><p style="margin-top:14px;font-size:11px;color:#A87D12;font-family:Instrument Sans;letter-spacing:.08em;text-transform:uppercase">Empfehlung · '+dl+'</p>';
     h+='<div class="prod" style="border-color:#BD931C;background:#F2E7C7"><div style="flex:1"><div class="role">Ritual-Set</div><div class="nm">'+r.bundle.nm+'</div><div style="font-size:12px;color:#5C4A42;margin-top:3px">'+r.bundle.n+'</div></div><div style="font-family:\'Bricolage Grotesque\';font-size:15px;color:#321E1E;white-space:nowrap">'+r.bundle.pr+'</div></div>';
     h+='<p style="font-size:12px;color:#8a7568;margin-top:16px;margin-bottom:2px">Oder einzeln entdecken:</p>';
     r.ess.forEach(function(e){ h+='<div class="prod"><div><div class="nm">'+e+'</div></div></div>'; });
+    h+='<p style="font-size:11px;color:#8a7568;margin-top:16px;text-align:center;letter-spacing:.04em">Handselektierte Rohstoffe · Clean Label · laborgeprüft</p>';
     h+='<div class="spacer"></div><button class="btn btn-gold" id="cta">Ritual entdecken</button><div class="hint">Passt auch zu dir: '+sec.name+'</div><button class="back" id="restart">Quiz neu starten</button>';
     card.innerHTML=h;
     document.getElementById('restart').onclick=function(){step=0;answers=[];depth='system';render();};
